@@ -9,25 +9,36 @@ import Foundation
 import Alamofire
 
 class RecipesService {
+    
+    var recipesArray = [recipe]()
    
-    func fetchItemsData<T:Codable>(of:T.Type,url:String,completion : @escaping (T?, Error?)->()){
+    func fetchRecipesData(completion : @escaping ([recipe]?, Error?)->()){
 
-        AF.request(url)
-                .validate()
-            .responseDecodable(of: T.self) { (response) in
-                    switch response.result {
-                    case .success( _):
-                       if let items = response.value {
-                        completion(items,nil)
+        AF.request(Url.AllRecipesAPI)
+            .validate()
 
-                       }
+            .responseDecodable(of: RecipesAPIData.self) { (response) in
+                switch response.result {
+          
+                case .success( _):
 
-                    case .failure(let error):
-                        print(error)
-                        completion(nil , error)
-        
-        
+                    guard let recipesAPIData = response.value else { return }
+                   
+                    for item in recipesAPIData.hits!{
+                      
+                        self.recipesArray.append(item.recipe!)
+                           
                     }
+                    
+                    completion(self.recipesArray,nil)
+                    
+               
+                case .failure(let error):
+
+                    completion(nil , error)
+
+
                 }
+            }
     }
 }

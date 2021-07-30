@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct URLs {
+struct Url {
     
-    public static var allCategoriesAPI : String = "https://api.edamam.com/search?q=chicken&app_id=c5e90f73&app_key=%205526d1e08285d64b28bd27fa9771b254"
+    public static var AllRecipesAPI : String = "https://api.edamam.com/search?q=chicken&app_id=c5e90f73&app_key=%205526d1e08285d64b28bd27fa9771b254"
     
 }
