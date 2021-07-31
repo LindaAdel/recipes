@@ -36,6 +36,14 @@ class AllRecipesViewController: UIViewController {
         }
     }
     
+    
+    
+    @IBAction func backNavBtn(_ sender: Any) {
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     func onSuccessUpdateView(){
         recipesAPIList = recipesViewModel.recipesData
         recipesList.reloadData()

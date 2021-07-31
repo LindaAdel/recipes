@@ -12,8 +12,8 @@ import Alamofire
 class RecipeDetailsViewController: UIViewController {
 
     @IBOutlet weak var recipeDetailImage: UIImageView!
-    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var recipeIngredientsLines: UITextView!
+    @IBOutlet weak var navItem: UINavigationItem!
     
     var recipeTitle : String!
     var recipeImage : String!
@@ -28,20 +28,25 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     func setUpViewData(){
-        
-        navigationBar.topItem?.title = recipeTitle
+     
+       navItem.title = recipeTitle
         recipeDetailImage.sd_setImage(with: URL(string: recipeImage))
         recipeIngredientsLines.text = recipeIngredients
+        recipeIngredientsLines.isEditable = false
     }
     
     @IBAction func shareRecipeLink(_ sender: Any) {
         print("share")
+        guard let url = URL(string: recipeWebsiteLink) else {return}
+        let shareSheetVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        present(shareSheetVC, animated: true, completion: nil)
     }
     
    
-    @IBAction func backToList(_ sender: Any) {
+    @IBAction func backToList(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
+    
     
     @IBAction func goToRecipeWebsiteBtn(_ sender: Any) {
         UIApplication.shared.open(URL(string: recipeWebsiteLink)!, options: [:], completionHandler: nil)

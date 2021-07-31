@@ -3,20 +3,24 @@ PODS:
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
+  - TagListView (1.4.1)
 
 DEPENDENCIES:
   - Alamofire
   - SDWebImage
+  - TagListView
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - SDWebImage
+    - TagListView
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
 
-PODFILE CHECKSUM: ba7a2c0bbbd2e52d202551009db1cc3ff0d82f0d
+PODFILE CHECKSUM: f9da4440deb42a65f937a48284c85f7bd4aab2d0
 
 COCOAPODS: 1.10.1

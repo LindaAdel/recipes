@@ -33,6 +33,7 @@ extension AllRecipesViewController : UITableViewDataSource {
         let cell = recipesList.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath) as! RecipesTableViewCell
         cell.layer.cornerRadius = 30
         cell.cellBackgroundView.backgroundColor = UIColor(patternImage: UIImage(named: "background")!)
+        cell.recipeHealthLabels.isEditable = false
         if let recipeImage = recipesAPIList[indexPath.row].image {
             cell.recipeImage.sd_setImage(with: URL(string: recipeImage))}
         if let recipeName = recipesAPIList[indexPath.row].label {
@@ -49,5 +50,16 @@ extension AllRecipesViewController : UITableViewDataSource {
           return 260
         
       }
+ 
+        
+    
+}
+extension AllRecipesViewController : UISearchResultsUpdating {
+   
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBarRecipe = searchController.searchBar.text
+        
+    }
+    
     
 }
