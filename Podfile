@@ -8,5 +8,6 @@ target 'recipes' do
    pod 'Alamofire'
    pod 'SDWebImage'
    pod 'TagListView'
+   pod 'DropDown'
 
 end

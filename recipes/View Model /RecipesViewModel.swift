@@ -29,7 +29,8 @@ class RecipesViewModel: NSObject {
     override init() {
         super.init()
         self.recipesService = RecipesService()
-        self.fetchRecipesDataFromAPI()
+      
+       
         
        
     }
@@ -49,5 +50,24 @@ class RecipesViewModel: NSObject {
             }
         })
     }
-    
+    func fetchFilterdRecipesDataFromAPI (filterKey : String){
+        recipesService.fetchFilterdRecipesData(filterKey: filterKey, completion:{ (recipesData , error) in
+            
+            if let error : Error = error{
+                
+                let message = error.localizedDescription
+                self.showError = message
+                
+            }else{
+                
+                self.recipesData = recipesData
+                
+            }
+        } )
+    }
+    func searchFiltring(searchText : String , recipesData : [recipe]) ->[recipe] {
+        return recipesData.filter {
+            ($0.ingredientLines?.contains(searchText))! || $0.label == searchText
+        }
+    }
 }

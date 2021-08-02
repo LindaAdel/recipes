@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 import SDWebImage
+import DropDown
+
 
 extension AllRecipesViewController : UITableViewDelegate{
     
@@ -54,12 +56,4 @@ extension AllRecipesViewController : UITableViewDataSource {
         
     
 }
-extension AllRecipesViewController : UISearchResultsUpdating {
-   
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBarRecipe = searchController.searchBar.text
-        
-    }
-    
-    
-}
+

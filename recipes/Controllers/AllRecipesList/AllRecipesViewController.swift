@@ -7,15 +7,17 @@
 
 import UIKit
 
+
 class AllRecipesViewController: UIViewController {
 
 
     @IBOutlet weak var recipesList: UITableView!
     
-    @IBOutlet weak var recipesSearchBar: UISearchBar!
     
     var recipesAPIList : [recipe] = [recipe]()
     let recipesViewModel = RecipesViewModel()
+    var filterTag : String!
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +26,7 @@ class AllRecipesViewController: UIViewController {
         // Do any additional setup after loading the view.
        
         recipesViewModel.bindRecipesViewModelToView = {
-                    
+        
             self.onSuccessUpdateView()
             
         }
@@ -34,6 +36,22 @@ class AllRecipesViewController: UIViewController {
             self.onFailUpdateView()
             
         }
+        switch filterTag {
+           
+        case "All" :
+            recipesViewModel.fetchRecipesDataFromAPI()
+        case "vegan" :
+           recipesViewModel.fetchFilterdRecipesDataFromAPI(filterKey: filterTag )
+        case "keto-friendly" :
+            recipesViewModel.fetchFilterdRecipesDataFromAPI(filterKey: filterTag )
+        case "low-sugar" :
+            recipesViewModel.fetchFilterdRecipesDataFromAPI(filterKey: filterTag )
+        default:
+            break
+        }
+        
+            recipesViewModel.fetchRecipesDataFromAPI()
+       
     }
     
     
