@@ -20,8 +20,8 @@ class SearchViewController: UIViewController {
     
     var searchController : UISearchController? = nil
     var searchArray = [NSManagedObject]()
-    var searchHistoryArray = [String]()
     var recipesViewModel = RecipesViewModel()
+    var searchHistoryModel = SearchHistoryModel()
     var recipeSearchList : [recipe] = [recipe]()
     let searchDropDown = DropDown()
  
@@ -31,7 +31,7 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         //search
         searchBar.delegate = self
-       
+        searchHistoryModel.restoreHistory(searchString:  getSearch())
         //table view
         searchList.delegate = self
         searchList.dataSource = self
@@ -54,6 +54,9 @@ class SearchViewController: UIViewController {
        
         
         // Do any additional setup after loading the view.
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        self.saveSearch(search: searchHistoryModel.searchArray)
     }
     func onSuccessUpdateView(){
         recipeSearchList  = recipesViewModel.recipesData

@@ -15,6 +15,11 @@ class RecipesViewModel: NSObject {
             self.bindRecipesViewModelToView()
         }
     }
+    var allRecipesData : [recipe]!{
+        didSet{
+            recipesData = allRecipesData
+        }
+    }
     var showError : String! {
         
         didSet{
@@ -45,7 +50,7 @@ class RecipesViewModel: NSObject {
                 
             }else{
                 
-                self.recipesData = recipesData
+                self.allRecipesData = recipesData
                 
             }
         })
@@ -65,9 +70,15 @@ class RecipesViewModel: NSObject {
             }
         } )
     }
-    func searchFiltring(searchText : String , recipesData : [recipe]) ->[recipe] {
-        return recipesData.filter {
-            ($0.ingredientLines?.contains(searchText))! || $0.label == searchText
+
+    func searchFiltring(searchText : String) ->[recipe] {
+      
+        var filterdData : [recipe]
+        filterdData = recipesData.filter { (recipesData) in
+            (recipesData.label?.lowercased().contains(searchText.lowercased()))!
         }
+        
+        print(filterdData)
+        return filterdData
     }
 }

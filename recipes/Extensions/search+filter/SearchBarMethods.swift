@@ -11,7 +11,7 @@ import CoreData
 import DropDown
 
 
-    extension SearchViewController : UITableViewDelegate{
+extension SearchViewController : UITableViewDelegate{
         
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: "recipeDetails") as! RecipeDetailsViewController
@@ -53,9 +53,9 @@ import DropDown
             
           }
     }
-        // MARK: searchbar methodes
+// MARK: searchbar methodes
   
-    extension SearchViewController : UISearchBarDelegate{
+extension SearchViewController : UISearchBarDelegate{
         func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
             // change cancel button color
          UIBarButtonItem.appearance(whenContainedInInstancesOf:[UISearchBar.self]).tintColor = UIColor.init(red: 244/255, green: 199/255, blue: 18/255, alpha: 1)
@@ -63,37 +63,50 @@ import DropDown
         }
         func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
                 self.searchBar.showsCancelButton = true
+            searchDropDown.anchorView = tagListView
+            searchDropDown.dataSource = self.searchHistoryModel.searchArray
+            searchDropDown.show()
+            searchDropDown.selectionAction = {  (index: Int, item: String) in
+                searchBar.text = item}
+          
          
         }
         func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
                 searchBar.showsCancelButton = false
-                searchBar.text = ""
+                
                 searchBar.resignFirstResponder()
+            recipesViewModel.recipesData = recipesViewModel.allRecipesData
+            
         }
         // This method updates filteredData based on the text in the Search Box
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let searchText = searchBar.text!
-        searchDropDown.anchorView = searchList
-        searchDropDown.dataSource = ["all","kdk"]
-        searchDropDown.show()
-        recipeSearchList = recipesViewModel.searchFiltring(searchText: searchText , recipesData: recipeSearchList)
+        recipeSearchList = recipesViewModel.searchFiltring(searchText: searchText )
         searchList.reloadData()
-           
+        searchDropDown.hide()
+       
+            
+            
+        
        }
         func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+            let searchText = searchBar.text!
+            searchHistoryModel.AddToHistory(searchString: searchText)
+            searchBar.text = ""
             searchList.reloadData()
         }
         
-        // MARK: searchbar core data
+// MARK: searchbar core data
 
-    func storeSearch(search: String){
+func saveSearch(search: [String]){
     
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let manageContext = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Searches", in: manageContext)
+    for item in search {
         
         let searchObj = NSManagedObject(entity: entity!, insertInto: manageContext)
-        searchObj.setValue(search, forKey: "search")
+        searchObj.setValue(item, forKey: "search")
         
         do{
             try manageContext.save()
@@ -102,34 +115,26 @@ import DropDown
             print(error)
         }
     }
+    }
     
-    func fetchSearch(){
+    func getSearch() -> [String]{
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let manageContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Searches")
-        
+        var stringArray = [String]()
         do{
             searchArray = try manageContext.fetch(fetchRequest)
+            stringArray = (searchArray.map { $0.value(forKey: "search")
+            } as? [String])!
+            
         }catch let error{
             print(error)
             
         }
+        return stringArray
     }
     
-    func deleteSearch(i : Int){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let manageContext = appDelegate.persistentContainer.viewContext
-        manageContext.delete(searchArray[i])
-        do{
-            try manageContext.save()
-        }catch let error{
-            
-            print(error)
-        }
-        searchArray.remove(at: i)
-        searchHistoryArray.remove(at: i)
-    }
-    
+   
     
 }
