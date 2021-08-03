@@ -10,7 +10,7 @@ import SDWebImage
 import Alamofire
 
 class RecipeDetailsViewController: UIViewController {
-
+    
     @IBOutlet weak var recipeDetailImage: UIImageView!
     @IBOutlet weak var recipeIngredientsLines: UITextView!
     @IBOutlet weak var navItem: UINavigationItem!
@@ -28,8 +28,8 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     func setUpViewData(){
-     
-       navItem.title = recipeTitle
+        
+        navItem.title = recipeTitle
         recipeDetailImage.sd_setImage(with: URL(string: recipeImage))
         recipeIngredientsLines.text = recipeIngredients
         recipeIngredientsLines.isEditable = false
@@ -42,7 +42,7 @@ class RecipeDetailsViewController: UIViewController {
         present(shareSheetVC, animated: true, completion: nil)
     }
     
-   
+    
     @IBAction func backToList(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
@@ -52,13 +52,13 @@ class RecipeDetailsViewController: UIViewController {
         UIApplication.shared.open(URL(string: recipeWebsiteLink)!, options: [:], completionHandler: nil)
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

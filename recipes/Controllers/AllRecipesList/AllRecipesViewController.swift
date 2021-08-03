@@ -9,39 +9,39 @@ import UIKit
 
 
 class AllRecipesViewController: UIViewController {
-
-
+    
+    
     @IBOutlet weak var recipesList: UITableView!
     
     
     var recipesAPIList : [recipe] = [recipe]()
     let recipesViewModel = RecipesViewModel()
     var filterTag : String!
-   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         recipesList.delegate = self
         recipesList.dataSource = self
         // Do any additional setup after loading the view.
-       
-        recipesViewModel.bindRecipesViewModelToView = {
         
+        recipesViewModel.bindRecipesViewModelToView = {
+            
             self.onSuccessUpdateView()
             
         }
         
         recipesViewModel.bindViewModelErrorToView = {
-                    
+            
             self.onFailUpdateView()
             
         }
         switch filterTag {
-           
+        
         case "All" :
             recipesViewModel.fetchRecipesDataFromAPI()
         case "vegan" :
-           recipesViewModel.fetchFilterdRecipesDataFromAPI(filterKey: filterTag )
+            recipesViewModel.fetchFilterdRecipesDataFromAPI(filterKey: filterTag )
         case "keto-friendly" :
             recipesViewModel.fetchFilterdRecipesDataFromAPI(filterKey: filterTag )
         case "low-sugar" :
@@ -50,8 +50,8 @@ class AllRecipesViewController: UIViewController {
             break
         }
         
-            recipesViewModel.fetchRecipesDataFromAPI()
-       
+        recipesViewModel.fetchRecipesDataFromAPI()
+        
     }
     
     
@@ -80,13 +80,13 @@ class AllRecipesViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

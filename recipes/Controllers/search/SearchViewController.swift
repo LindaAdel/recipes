@@ -14,8 +14,6 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tagListView: TagListView!
-  //  @IBOutlet weak var filterRecipesContainer: UIView!
-    
     @IBOutlet weak var searchList: UITableView!
     
     var searchController : UISearchController? = nil
@@ -24,8 +22,8 @@ class SearchViewController: UIViewController {
     var searchHistoryModel = SearchHistoryModel()
     var recipeSearchList : [recipe] = [recipe]()
     let searchDropDown = DropDown()
- 
-   
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,23 +33,23 @@ class SearchViewController: UIViewController {
         //table view
         searchList.delegate = self
         searchList.dataSource = self
-       //listView
+        //listView
         tagListView.delegate = self
         setUpTagListView()
- 
-        recipesViewModel.bindRecipesViewModelToView = {
         
+        recipesViewModel.bindRecipesViewModelToView = {
+            
             self.onSuccessUpdateView()
             
         }
         
         recipesViewModel.bindViewModelErrorToView = {
-                    
+            
             self.onFailUpdateView()
             
         }
         recipesViewModel.fetchRecipesDataFromAPI()
-       
+        
         
         // Do any additional setup after loading the view.
     }
@@ -61,7 +59,7 @@ class SearchViewController: UIViewController {
     func onSuccessUpdateView(){
         recipeSearchList  = recipesViewModel.recipesData
         searchList.reloadData()
-       
+        
         
     }
     func onFailUpdateView(){
@@ -76,15 +74,15 @@ class SearchViewController: UIViewController {
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
     }
-  
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

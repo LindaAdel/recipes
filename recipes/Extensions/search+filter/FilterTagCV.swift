@@ -23,32 +23,32 @@ extension SearchViewController : TagListViewDelegate {
         tagListView.addTag("Low Sugar")
     }
     func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
-           print("Tag pressed: \(title), \(sender)")
-       //tagView.isSelected = !tagView.isSelected
+        print("Tag pressed: \(title), \(sender)")
+        
         switch title {
         case "All" :
             let allRecipesVC = self.storyboard?.instantiateViewController(withIdentifier: "AllRecipesVC") as! AllRecipesViewController
             allRecipesVC.filterTag = "All"
             allRecipesVC.modalPresentationStyle = .fullScreen
             self.present(allRecipesVC, animated: true, completion: nil)
-          
+            
         case "Vegan" :
             let allRecipesVC =  self.storyboard?.instantiateViewController(withIdentifier: "AllRecipesVC") as! AllRecipesViewController
-           allRecipesVC.filterTag = "vegan"
+            allRecipesVC.filterTag = "vegan"
             allRecipesVC.modalPresentationStyle = .fullScreen
             self.present(allRecipesVC, animated: true, completion: nil)
         case "Keto" :
             let allRecipesVC =  self.storyboard?.instantiateViewController(withIdentifier: "AllRecipesVC") as! AllRecipesViewController
-           allRecipesVC.filterTag = "keto-friendly"
+            allRecipesVC.filterTag = "keto-friendly"
             allRecipesVC.modalPresentationStyle = .fullScreen
             self.present(allRecipesVC, animated: true, completion: nil)
         case "Low Sugar" :
             let allRecipesVC =  self.storyboard?.instantiateViewController(withIdentifier: "AllRecipesVC") as! AllRecipesViewController
-           allRecipesVC.filterTag = "low-sugar"
+            allRecipesVC.filterTag = "low-sugar"
             allRecipesVC.modalPresentationStyle = .fullScreen
             self.present(allRecipesVC, animated: true, completion: nil)
         default:
             break
         }
-       }
+    }
 }

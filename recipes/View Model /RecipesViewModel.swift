@@ -30,19 +30,19 @@ class RecipesViewModel: NSObject {
     }
     var bindRecipesViewModelToView : (()->()) = {}
     var bindViewModelErrorToView : (()->()) = {}
-
+    
     override init() {
         super.init()
         self.recipesService = RecipesService()
-      
-       
         
-       
+        
+        
+        
     }
     func fetchRecipesDataFromAPI (){
         
         recipesService.fetchRecipesData(completion: { (recipesData , error) in
-       
+            
             if let error : Error = error{
                 
                 let message = error.localizedDescription
@@ -70,9 +70,9 @@ class RecipesViewModel: NSObject {
             }
         } )
     }
-
+    
     func searchFiltring(searchText : String) ->[recipe] {
-      
+        
         var filterdData : [recipe]
         filterdData = recipesData.filter { (recipesData) in
             (recipesData.label?.lowercased().contains(searchText.lowercased()))!
